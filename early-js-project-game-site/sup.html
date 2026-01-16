@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Магазин игр</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.7.3/css/uikit.min.css" />
+  
+  <style>
+    body {
+      background-color: #121212; /* темный фон */
+      color: #ffffff; /* светлый текст */
+    }
+    
+    header, footer {
+      background-color: #FFA500; /* желто-оранжевый цвет */
+      color: #000; /* темный текст */
+    }
+
+    a {
+      color: #FFA500; /* желто-оранжевый цвет ссылок */
+    }
+
+    a:hover {
+      color: #FFD700; /* более светлый оттенок при наведении */
+    }
+
+    main {
+      margin-top: 20px;
+    }
+
+    .logo-img {
+      max-width: 150px; /* настройте размер логотипа по вашему усмотрению */
+    }
+
+    .about, .new-arrivals, .popular-games {
+      margin-bottom: 40px;
+    }
+    
+    .game-card {
+      background: #333; /* темный фон карточки */
+      padding: 20px;
+      border: 1px solid #444; /* темная рамка */
+      border-radius: 5px;
+      text-align: center;
+    }
+
+    .game-card img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .game-card h3 {
+      margin-top: 15px;
+      margin-bottom: 10px;
+      color: #FFA500; /* желто-оранжевый цвет заголовков */
+    }
+    .game-card h4 {
+      margin-top: 15px;
+      margin-bottom: 10px;
+      color: #856731; /* желто-оранжевый цвет заголовков */
+    }
+    .game-card p {
+      color: #ccc; /* светлый текст описания */
+    }
+    .gameImg {
+      height: 200px;
+      width: 200px;
+    }
+    .itms{
+        width: 100%;
+        height: 50px;
+        margin: 20px;
+        border: white solid 2px;
+    }
+    canvas {
+      border: 1px solid black;
+      background: #0c1851;
+      display: block;
+      margin: auto;
+    }
+
+    
+  </style>
+</head>
+<body>
+    <header class="uk-container">
+      <nav class="uk-navbar-container uk-margin" uk-navbar>
+        <div class="uk-navbar-left">
+          <img src="img/cheese_logo.png" alt="Логотип" class="logo-img"> <!-- добавляем логотип -->
+          <a class="uk-navbar-item uk-logo" href="#">CheeZy Games</a>
+        </div>
+        <div class="uk-navbar-right">
+          <ul class="uk-navbar-nav">
+            <li><a href="/index.html">Главная</a></li>
+            <li><a href="/lbr.html">Каталог</a></li>
+            <li><a href="/crt.html" id="cart">Корзина (0)</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+  
+    <main class="uk-container">
+        <div class="chatWrapper">
+            <div id="messageBox">
+        
+              <div class="message">
+                <div class="head">
+                  <span class="author">Admin</span>
+                  <span class="time">09:15</span>
+                </div>
+                <p class="content">
+                  Hello!
+                </p>
+              </div>
+        
+              <div class="message my">
+                <div class="head">
+                  <span class="author">Admin</span>
+                  <span class="time">09:15</span>
+                </div>
+                <p class="content">
+                  GoodBye!
+                </p>
+              </div>
+        
+            </div>
+        
+            <div class="sendPanel">
+              <textarea type="text" id="messageText" placeholder="Введите текст сообщения..." autofocus></textarea>
+              <button id="sendBtn" class="uk-button uk-button-default">Отправить</button>
+            </div>
+          </div>
+        <h2>Пока ждете можете сыграть в игру</h2>
+        <p>
+            HP = <span id="hp">100</span>
+            </p>
+            <canvas id="game" height="500" width="1000"></canvas>
+    </main>
+  
+    <footer class="uk-container uk-margin-large-top">
+      <p>© 2024 CheeZy Games. Все права защищены.</p>
+    </footer>
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.7.3/js/uikit.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.7.3/js/uikit-icons.min.js"></script> 
+    <script src="js/handlebars-v4.1.2.js"></script>
+  
+    <script>
+      'use strict';
+      const buttons = document.querySelectorAll('#buy');
+      const cartElement = document.getElementById('cart');
+      let cartCounter = localStorage.getItem('cartCounter') || 0;
+      cartElement.innerHTML = 'Корзина (' + cartCounter + ')';
+      let cost = 0;
+  
+      const cartItemsElement = document.getElementById('cartItems');
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  
+      function displayCartItems() {
+        cartItemsElement.innerHTML = '';
+        cart.forEach(item => {
+          const itemElement = document.createElement('div');
+          itemElement.classList.add('itms')
+          itemElement.textContent = `Товар: ${item.item}, Цена: ${item.price}`;
+          cost+=parseInt(item.price);
+          cartItemsElement.appendChild(itemElement);
+        });
+      }
+  
+      displayCartItems();
+      finalcost.innerHTML = "Итог : " + cost;
+      buttons.forEach(button => {
+        button.addEventListener('click', function() {
+          cartCounter++;
+          localStorage.setItem('cartCounter', cartCounter);
+          cartElement.innerHTML = 'Корзина (' + cartCounter + ')';
+        });
+      });
+  
+      function addToCart(item, price) {
+        cart.push({ item, price });
+        localStorage.setItem('cart', JSON.stringify(cart));
+        console.log('Товар добавлен в корзину');
+        displayCartItems();
+      }
+      
+      let socket = new WebSocket('ws://studyprograms.informatics.ru:8080')
+    socket.addEventListener('open',function(){
+      alert('Соединение установлено')
+    });
+    socket.addEventListener('close',function(){
+      alert('Соединение закрыто')
+    });
+    socket.addEventListener('message',function(message){
+      const res = JSON.parse(message.data);
+      
+      const messageBox = document.getElementById('messageBox');
+      const newMessage = `
+        <div class="message">
+          <div class="head">
+            <span class="author">${res.author}</span>
+            <span class="time">${new Date().getHours()}:${new Date().getMinutes()}</span>
+          </div>
+          <p class="content">
+            ${res.text}
+          </p>
+        </div>
+        `
+      messageBox.innerHTML += newMessage;
+    });
+    sendBtn.addEventListener('click',function(){
+      socket.send(messageText.value);
+    })
+
+    // === Подготовка необходимых глобальных переменных ===
+		let deg = 0;
+    let canvas = document.querySelector('#game');
+    let ctx = canvas.getContext('2d');
+    var earthImg = new Image();
+    earthImg.src = "https://studyprograms.informatics.ru/api/game/earth.png";
+    
+    
+    
+    // =============================================================================================================
+    // === ЗАДАНИЕ 1. ПОДГРУЖАЕМ HP (СКОЛЬКО ЖИЗНЕЙ ОСТАЛОСЬ И ЗЕМЛИ) ==============================================
+    // =============================================================================================================
+    
+    /* === Получение HP (кол-ва жизней) === */
+    // Создаем интервал, который стучится на адрес https://studyprograms.informatics.ru/api/game/gethp.php
+    // каждые 100мс (10 раз в секунду) асинхронно.
+    // В ответе от сервера приходит число (не JSON!). Записываем его в innerHTML элемента span,
+    // специально подготовленного для этого в HTML-коде
+    
+    
+    
+    // =============================================================================================================
+    // === ЗАДАНИЕ 2. ПОДГРУЖАЕМ И ОТРИСОВЫВАЕМ МАССИВ МЕТЕОРИТОВ ==================================================
+    // =============================================================================================================
+    
+    /* === Получение координат метеоритов и их отрисовка === */
+    function updState(){
+      let xhr = new XMLHttpRequest();
+      xhr.open('GET','https://studyprograms.informatics.ru/api/game/getstate.php');
+      xhr.send();
+
+      xhr.addEventListener('readystatechange',function(){
+        if(xhr.status == 200 && xhr.readyState == xhr.DONE){
+          let info = JSON.parse(xhr.responseText)
+          hp.innerHTML = info.hp;
+          let meteors = info.meteorits;
+
+          ctx.clearRect(0, 0, 1000, 500);
+
+          // Рисуем Землю
+          drawEarth();
+
+          // Обходим массив метеоритов
+          for(let i =0;i<meteors.length;i++){
+            drawMeteorit(meteors[i].x,meteors[i].y)
+          }
+        }
+      });
+    }
+        
+     
+
+    let interval = setInterval(updState,100);
+    
+    
+    
+    
+    // =============================================================================================================
+    // === ЗАДАНИЕ 3. РЕАЛИЗУЕМ ВЫСТРЕЛ (ЗАПРОС С КООРДИНАТАМИ ПРИ КЛИКЕ НА CANVAS) ================================
+    // =============================================================================================================
+
+    /* === Выстрел == */
+    canvas.addEventListener('click', function(e) {
+      // Координаты клика (ИСПОЛЬЗУЙТЕ ИХ КАК КООРДИНАТЫ ВЫСТРЕЛА)
+      let clickX = Math.round(e.clientX - game.getBoundingClientRect().left);
+      let clickY = Math.round(e.clientY - game.getBoundingClientRect().top);
+
+
+      // Отправляем асинхронный GET-запрос на адрес https://studyprograms.informatics.ru/api/game/shot.php 
+      // С параметрами x = clickX и у = clickY
+    });
+
+
+
+
+    
+    
+    
+    
+    // =============================================================================================================
+    // === ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ =================================================================================
+    // =============================================================================================================
+    
+    /* === Функция рисования вращающейся Земли на canvas === */
+    function drawEarth() {
+      ctx.save();
+      ctx.translate(500, 250);
+      ctx.rotate((deg % 360) * Math.PI / 180);
+      ctx.drawImage(earthImg, -25, -25, 50, 50);
+      ctx.restore();
+      deg += 10;
+    }
+
+    /* === Функция рисования метеорита в точке (x,y) на canvas === */
+    function drawMeteorit(x, y) {
+      // Рисуем обводку (свечение)
+      ctx.fillStyle = '#555d85';
+      ctx.beginPath();
+      ctx.arc(x, y, 4, 0, Math.PI * 2);
+      ctx.fill();
+      
+      // Рисуем ядро (центральная ярко белая часть)
+      ctx.fillStyle = '#fff';
+      ctx.beginPath();
+      ctx.arc(x, y, 2, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    </script>
+  </body>
+  </html>

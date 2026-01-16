@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Магазин игр</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.7.3/css/uikit.min.css" />
+  <style>
+    body {
+      background-color: #121212; 
+      color: #ffffff; 
+    }
+    
+    header, footer {
+      background-color: #FFA500; 
+      color: #000; 
+    }
+
+    a {
+      color: #FFA500; 
+    }
+
+    a:hover {
+      color: #FFD700; 
+    }
+
+    main {
+      margin-top: 20px;
+    }
+
+    .logo-img {
+      max-width: 150px; 
+    }
+
+    .about, .new-arrivals, .popular-games {
+      margin-bottom: 40px;
+    }
+    
+    .game-card {
+      background: #333; 
+      padding: 20px;
+      border: 1px solid #444; 
+      border-radius: 5px;
+      text-align: center;
+    }
+
+    .game-card img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .game-card h3 {
+      margin-top: 15px;
+      margin-bottom: 10px;
+      color: #FFA500; 
+    }
+    .game-card h4 {
+      margin-top: 15px;
+      margin-bottom: 10px;
+      color: #856731; 
+    }
+    .game-card p {
+      color: #ccc; 
+    }
+    .gameImg {
+      height: 200px;
+      width: 200px;
+    }
+    
+  </style>
+</head>
+<body>
+  <header class="uk-container">
+    <nav class="uk-navbar-container uk-margin" uk-navbar>
+      <div class="uk-navbar-left">
+        <img src="img/cheese_logo.png" alt="Логотип" class="logo-img">
+        <a class="uk-navbar-item uk-logo" href="#">CheeZy Games</a>
+      </div>
+      <div class="uk-navbar-right">
+        <ul class="uk-navbar-nav">
+          <li><a href="/index.html">Главная</a></li>
+          <li><a href="/lbr.html">Каталог</a></li>
+
+          <li><a href="/crt.html" id="cart">Корзина  (0)</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main class="uk-container">
+    <section class="about">
+      <h2>О сайте</h2>
+      <p>Добро пожаловать на CheeZy Games! Наш сайт предлагает лучшие игры для всех возрастов и предпочтений. Мы гордимся тем, что предоставляем качественные продукты и услуги нашим клиентам. У нас вы найдете новейшие релизы, популярные хиты и эксклюзивные предложения. Доверяйте нам — мы всегда на стороне наших игроков!</p>
+    </section>
+
+    <section class="new-arrivals">
+      <h2>Новинки на сайте</h2>
+      <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slider>
+        <ul class="uk-slider-items uk-child-width-1-2@s uk-child-width-1-3@m">
+          <li>
+            <div class="game-card">
+              <img src="img/Baldur's_Gate_III_Logo.png" alt="Game 1" class="gameImg">
+              <h3>Baldur's Gate III</h3>
+              <p>Baldur's Gate 3 - RPG с элементами стратегии от Larian Studios, продолжение легендарной серии, где игроки отправляются в эпическое приключение по Забытые Королевства, сражаясь с монстрами и принимая сложные решения.</p>
+              <button class="uk-button uk-button-default" id="buy" onclick="addToCart('Baldurs Gate III', 1500)">Купить</button>
+            </div>
+          </li>
+          <li>
+            <div class="game-card">
+              <img src="img/Cyberpunk_2077.jpg" alt="Game 2" class="gameImg">
+              <h3>Cyberpunk 2077</h3>
+              <p>Cyberpunk 2077 - Action/RPG от CD Projekt Red, действие которой происходит в киберпанковом мире Ночного Города, где игроки исследуют открытый мир, выполняют квесты и взаимодействуют с разнообразными персонажами.</p>
+              <button class="uk-button uk-button-default" id="buy" onclick="addToCart('Cyberpunk 2077', 1000)">Купить</button>
+            </div>
+          </li>
+          <li>
+            <div class="game-card">
+              <img src="img/Sons_of_the_Forest.jpg" alt="Game 3" class="gameImg">
+              <h3>Sons of the Forest</h3>
+              <p>Sons of the Forest - Survival-хоррор от Endnight Games, где игрокам предстоит выживать в лесу, бороться с опасными существами и исследовать загадочные тайны острова.</p>
+              <button class="uk-button uk-button-default" id="buy" onclick="addToCart('Sons of the Forest', 600)">Купить</button>
+            </div>
+          </li>
+          <li>
+            <div class="game-card">
+              <img src="img/Atomic_Heart_Cover_Art.jpg" alt="Game 4" class="gameImg">
+              <h3>Atomic Heart</h3>
+              <p>Atomic Heart - Погрузитесь в альтернативную советскую реальность, где технологии и мистика переплетаются в захватывающем шутере от первого лица.</p>
+              <button class="uk-button uk-button-default" id="buy" onclick="addToCart('Atomic Heart', 900)">Купить</button>
+            </div>
+          </li>
+          <li>
+            <div class="game-card">
+              <img src="img/Far_cry_6.jpeg" alt="Game 5" class="gameImg">
+              <h3>Far cry 6</h3>
+              <p>Far Cry 6 - Исследуйте тропический рай на острове Яра, сражаясь против жестокого режима и возглавляемого диктатором армии.</p>
+              <button class="uk-button uk-button-default" id="buy" onclick="addToCart('Far Cry 6', 750)">Купить</button>
+            </div>
+          </li>
+        </ul>
+
+        <a class="uk-position-center-left uk-position-small uk-hidden-hover uk-slidenav-large" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
+        <a class="uk-position-center-right uk-position-small uk-hidden-hover uk-slidenav-large" href="#" uk-slidenav-next uk-slider-item="next"></a>
+      </div>
+    </section>
+
+    <section class="popular-games">
+      <h2>Популярные игры</h2>
+      <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slider>
+        <ul class="uk-slider-items uk-child-width-1-2@s uk-child-width-1-3@m">
+          <li>
+            <div class="game-card">
+              <img src="img/Don't_Starve_cover.jpg" alt="Game 1" class="gameImg">
+              <h3>Don't Starve</h3>
+              <p>Don't Starve - выживание в мрачном мире, где игроки исследуют таинственные земли, собирают ресурсы, создают предметы и борются с опасностями, стараясь не умереть от голода, монстров или безумия.</p>
+              <button class="uk-button uk-button-default" id="buy" onclick="addToCart('Dont Starve', 300)">Купить</button>
+            </div>
+          </li>
+          <li>
+            <div class="game-card">
+              <img src="img/Red_Dead_Redemption_2_coverart.jpg" alt="Game 2" class="gameImg">
+              <h3>Red Dead Redemption 2</h3>
+              <p>Red Dead Redemption 2 - приключенческий экшен от Rockstar Games, переносящий игроков в эпоху Дикого Запада, где они исследуют открытый мир, выполняют квесты и принимают участие в стрельбе, охоте и других активностях.</p>
+              <button class="uk-button uk-button-default" id="buy" onclick="addToCart('Red Dead Redemption 2', 800)">Купить</button>
+            </div>
+          </li>
+          <li>
+            <div class="game-card">
+              <img src="img/Terraria_Steam_artwork.jpg" alt="Game 3" class="gameImg">
+              <h3>Terraria</h3>
+              <p>Terraria - песочница-платформер, где игроки копают, строят и сражаются в разнообразных мирах, исследуя подземелья, сражаясь с боссами и находя сокровища.</p>
+              <button class="uk-button uk-button-default" id="buy" onclick="addToCart('Terraria', 200)">Купить</button>
+            </div>
+          </li>
+          <li>
+            <div class="game-card">
+              <img src="img/Minecraft_Cover_Art.png" alt="Game 4" class="gameImg">
+              <h3>Minecraft</h3>
+              <p>Minecraft - песочница с открытым миром, где игроки могут строить все, что угодно, исследуя бескрайние просторы, сражаясь с монстрами и создавая уникальные миры.</p>
+              <button class="uk-button uk-button-default" id="buy" onclick="addToCart('Minecraft', 700)">Купить</button>
+            </div>
+          </li>
+          <li>
+            <div class="game-card">
+              <img src="img/GTAV_Official_Cover_Art.jpg" alt="Game 5" class="gameImg">
+              <h3>GTA V</h3>
+              <p>GTA 5 - экшен с открытым миром от Rockstar Games, где игроки могут свободно перемещаться по городу Лос-Сантос, выполнять различные миссии, участвовать в гонках, стрельбе и других видеоигровых активностях.</p>
+              <button class="uk-button uk-button-default" id="buy" onclick="addToCart('GTA V', 650)">Купить</button>
+            </div>
+          </li>
+        </ul>
+
+        <a class="uk-position-center-left uk-position-small uk-hidden-hover uk-slidenav-large" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
+        <a class="uk-position-center-right uk-position-small uk-hidden-hover uk-slidenav-large" href="#" uk-slidenav-next uk-slider-item="next"></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="uk-container uk-margin-large-top">
+    <p>© 2024 CheeZy Games. Все права защищены.</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.7.3/js/uikit.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.7.3/js/uikit-icons.min.js"></script> 
+    <script>
+  'use strict'
+  const buttons = document.querySelectorAll('#buy');
+  const cart = document.getElementById('cart');
+  let cartCounter = 0;
+
+
+let i = localStorage.getItem('cartCounter');
+if (i) {
+cart.innerHTML = "Корзина (" + i + ")";
+} else {
+i = 0;
+}
+
+
+buttons.forEach(button => {
+button.addEventListener('click', function() {
+  i++;
+  localStorage.setItem('cartCounter', i);
+  cart.innerHTML = "Корзина (" + i + ")";
+});
+});
+
+function addToCart(item, price) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart.push({ item, price });
+      localStorage.setItem('cart', JSON.stringify(cart));
+      console.log('item added')
+    }
+  </script>
+</body>
+</html>
